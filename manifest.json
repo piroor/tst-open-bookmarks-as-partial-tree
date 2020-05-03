@@ -7,6 +7,7 @@
   "permissions": [
     "bookmarks",
     "contextualIdentities",
+    "cookies",
     "menus",
     "storage",
     "tabs"

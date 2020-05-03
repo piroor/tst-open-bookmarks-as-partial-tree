@@ -61,7 +61,8 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
   const firstTab = await browser.tabs.create({
     windowId,
     url:    items[0].url,
-    active: true
+    active: true,
+    cookieStoreId
   });
 
   const tabs = [firstTab];
@@ -70,16 +71,15 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
     const params = {
       title: item.title,
       url:   item.url,
+      index: firstTab.index + (++offset),
       windowId,
-      discarded
+      discarded,
+      cookieStoreId
     };
     if (/^about:/.test(params.url))
       params.discarded = false; // discarded tab cannot be opened with any about: URL
     if (!params.discarded) // title cannot be set for non-discarded tabs
       params.title = null;
-    params.index = firstTab.index + (++offset);
-    if (cookieStoreId)
-      params.cookieStoreId = cookieStoreId;
     tabs.push(await browser.tabs.create(params));
   }
 

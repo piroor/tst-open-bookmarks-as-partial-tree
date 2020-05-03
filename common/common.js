@@ -9,7 +9,8 @@ import Configs from '/extlib/Configs.js';
 
 export const configs = new Configs({
   context_openPartialTreeFromHere: true,
-  context_openPartialTreeFromHereInContainer: true,
+
+  container_openPartialTreeFromHere: true,
 
   openDiscarded: true,
 }, {

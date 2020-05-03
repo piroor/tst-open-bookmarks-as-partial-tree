@@ -39,12 +39,11 @@ function getSafeCreateParams(params) {
 
 
 const mItemsById = {
-  openPartialTreeFromHere: {
+  'openPartialTreeFromHere': {
     title: browser.i18n.getMessage('context_openPartialTreeFromHere_label')
   },
-  openPartialTreeFromHereInContainer: {
-    title: browser.i18n.getMessage('context_openPartialTreeFromHereInContainer_label'),
-    containerMenu: true
+  'openPartialTreeFromHere:container': {
+    title: browser.i18n.getMessage('context_openPartialTreeFromHere_label')
   }
 };
 const mItems = [];
@@ -53,11 +52,10 @@ for (const id of Object.keys(mItemsById)) {
   const item = mItemsById[id];
   item.id        = id;
   item.contexts  = ['bookmark'];
-  item.configKey = `context_${id}`;
   //item.icons = manifest.icons;
 
   mItems.push(item);
-  if (item.containerMenu) {
+  if (id.endsWith(':container')) {
     mContainerMenuItems.push(item);
     item.children = [];
   }
@@ -71,6 +69,25 @@ async function refreshContainerItems() {
     for (const child of parent.children) {
       browser.menus.remove(child.id);
     }
+    parent.children = [];
+  }
+  for (const parent of mContainerMenuItems) {
+    const defaultItem = {
+      parentId: parent.id,
+      id:       `${parent.id}:default`,
+      title:    browser.i18n.getMessage('context_defaultContainer_label'),
+      contexts: ['bookmark']
+    };
+    parent.children.push(defaultItem);
+    browser.menus.create(defaultItem);
+    const separator = {
+      parentId: parent.id,
+      id:       `${parent.id}:default-separator`,
+      type:     'separator',
+      contexts: ['bookmark']
+    };
+    parent.children.push(separator);
+    browser.menus.create(separator);
   }
   await ContextualIdentities.forEach(identity => {
     for (const parent of mContainerMenuItems) {
@@ -104,11 +121,18 @@ ContextualIdentities.onUpdated.addListener(reserveToRefreshContainerItems);
 
 
 browser.menus.onClicked.addListener(async info => {
-  switch (info.menuItemId) {
-    case 'openPartialTreeFromHere':
+  const [, menuItemId, parameters] = info.menuItemId.match(/^([^:]+)(?::(.*))?/);
+  switch (menuItemId) {
+    case 'openPartialTreeFromHere': {
       const partialTreeItems = await Bookmark.getPartialTree(info.bookmarkId);
-      Commands.openBookmarksWithStructure(partialTreeItems);
-      break;
+      const cookieStoreId = parameters && parameters.replace(/^container:/, '');
+      if (cookieStoreId && cookieStoreId != 'default')
+        Commands.openBookmarksWithStructure(partialTreeItems, {
+          cookieStoreId
+        });
+      else
+        Commands.openBookmarksWithStructure(partialTreeItems);
+    }; break;
   }
 });
 
@@ -126,14 +150,16 @@ browser.menus.onShown.addListener(async info => {
       partialTreeItems = await Bookmark.getPartialTree(item);
   }
 
+  mItemsById['openPartialTreeFromHere:container'].visible = !!(
+    partialTreeItems.length > 1 &&
+    configs.context_openPartialTreeFromHere &&
+    configs.container_openPartialTreeFromHere &&
+    mItemsById['openPartialTreeFromHere:container'].children.length > 0
+  );
   mItemsById.openPartialTreeFromHere.visible = !!(
     partialTreeItems.length > 1 &&
-    configs[mItemsById.openPartialTreeFromHere.configKey]
-  );
-  mItemsById.openPartialTreeFromHereInContainer.visible = !!(
-    partialTreeItems.length > 1 &&
-    configs[mItemsById.openPartialTreeFromHereInContainer.configKey] &&
-    mItemsById.openPartialTreeFromHereInContainer.children.length > 0
+    configs.context_openPartialTreeFromHere &&
+    !mItemsById['openPartialTreeFromHere:container'].visible
   );
 
   for (const item of mItems) {
