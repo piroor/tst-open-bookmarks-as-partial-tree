@@ -18,7 +18,7 @@ const FORBIDDEN_URL_MATCHER = /^(about|chrome|resource|file):/;
 const ALLOWED_URL_MATCHER = /^about:blank(\?|$)/;
 
 
-export async function openBookmarksWithStructure(items, { activeIndex = 0, discarded, cookieStoreId } = {}) {
+export async function openBookmarksWithStructure(items, { discarded, cookieStoreId } = {}) {
   if (typeof discarded == 'undefined')
     discarded = configs.openDiscarded;
 
