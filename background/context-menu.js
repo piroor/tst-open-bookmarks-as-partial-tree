@@ -11,6 +11,7 @@ import {
 
 import * as Bookmark from './bookmark.js';
 import * as Commands from './commands.js';
+import * as ContextualIdentities from './contextual-identities.js';
 
 
 const SAFE_CREATE_PROPERTIES = [
@@ -40,9 +41,14 @@ function getSafeCreateParams(params) {
 const mItemsById = {
   openPartialTreeFromHere: {
     title: browser.i18n.getMessage('context_openPartialTreeFromHere_label')
+  },
+  openPartialTreeFromHereInContainer: {
+    title: browser.i18n.getMessage('context_openPartialTreeFromHereInContainer_label'),
+    containerMenu: true
   }
 };
 const mItems = [];
+const mContainerMenuItems = [];
 for (const id of Object.keys(mItemsById)) {
   const item = mItemsById[id];
   item.id        = id;
@@ -51,11 +57,50 @@ for (const id of Object.keys(mItemsById)) {
   //item.icons = manifest.icons;
 
   mItems.push(item);
+  if (item.containerMenu) {
+    mContainerMenuItems.push(item);
+    item.children = [];
+  }
 }
-
 for (const item of mItems) {
   browser.menus.create(getSafeCreateParams(item));
 }
+
+async function refreshContainerItems() {
+  for (const parent of mContainerMenuItems) {
+    for (const child of parent.children) {
+      browser.menus.remove(child.id);
+    }
+  }
+  await ContextualIdentities.forEach(identity => {
+    for (const parent of mContainerMenuItems) {
+      const id = `${parent.id}:${identity.cookieStoreId}`;
+      const item = {
+        parentId: parent.id,
+        id:       id,
+        title:    identity.name.replace(/^([a-z0-9])/i, '&$1'),
+        contexts: ['bookmark']
+      };
+      if (identity.iconUrl)
+        item.icons = { 16: identity.iconUrl };
+      parent.children.push(item);
+      browser.menus.create(item);
+    }
+  });
+  browser.menus.refresh();
+}
+refreshContainerItems();
+
+function reserveToRefreshContainerItems() {
+  if (reserveToRefreshContainerItems.reserved)
+    clearTimeout(reserveToRefreshContainerItems.reserved);
+  reserveToRefreshContainerItems.reserved = setTimeout(() => {
+    reserveToRefreshContainerItems.reserved = null;
+    refreshContainerItems();
+  }, 100);
+}
+reserveToRefreshContainerItems.reserved = null;
+ContextualIdentities.onUpdated.addListener(reserveToRefreshContainerItems);
 
 
 browser.menus.onClicked.addListener(async info => {
@@ -85,6 +130,12 @@ browser.menus.onShown.addListener(async info => {
     partialTreeItems.length > 1 &&
     configs[mItemsById.openPartialTreeFromHere.configKey]
   );
+  mItemsById.openPartialTreeFromHereInContainer.visible = !!(
+    partialTreeItems.length > 1 &&
+    configs[mItemsById.openPartialTreeFromHereInContainer.configKey] &&
+    mItemsById.openPartialTreeFromHereInContainer.children.length > 0
+  );
+
   for (const item of mItems) {
     browser.menus.update(item.id, {
       visible: item.visible
