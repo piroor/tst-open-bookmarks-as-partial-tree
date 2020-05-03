@@ -38,8 +38,8 @@ function getSafeCreateParams(params) {
 
 
 const mItemsById = {
-  openBookmarksWithStructure: {
-    title: browser.i18n.getMessage('context_openBookmarksWithStructure_label')
+  openPartialTreeFromHere: {
+    title: browser.i18n.getMessage('context_openPartialTreeFromHere_label')
   }
 };
 const mItems = [];
@@ -60,7 +60,7 @@ for (const item of mItems) {
 
 browser.menus.onClicked.addListener(async info => {
   switch (info.menuItemId) {
-    case 'openBookmarksWithStructure':
+    case 'openPartialTreeFromHere':
       const partialTreeItems = await Bookmark.getPartialTree(info.bookmarkId);
       Commands.openBookmarksWithStructure(partialTreeItems);
       break;
@@ -81,9 +81,9 @@ browser.menus.onShown.addListener(async info => {
       partialTreeItems = await Bookmark.getPartialTree(item);
   }
 
-  mItemsById.openBookmarksWithStructure.visible = !!(
+  mItemsById.openPartialTreeFromHere.visible = !!(
     partialTreeItems.length > 1 &&
-    configs[mItemsById.openBookmarksWithStructure.configKey]
+    configs[mItemsById.openPartialTreeFromHere.configKey]
   );
   for (const item of mItems) {
     browser.menus.update(item.id, {

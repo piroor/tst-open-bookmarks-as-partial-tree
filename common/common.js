@@ -8,7 +8,7 @@
 import Configs from '/extlib/Configs.js';
 
 export const configs = new Configs({
-  context_openBookmarksWithStructure: true,
+  context_openPartialTreeFromHere: true,
 
   openDiscarded: true,
 }, {
