@@ -68,41 +68,41 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
   });
 
   try {
-  const firstTab = await browser.tabs.create({
-    windowId,
-    url:       items[0].url,
-    active:    firstRegularItemIndex == 0,
-    discarded: discarded && firstRegularItemIndex != 0 && !GROUP_TAB_MATCHER.test(items[0].url),
-    cookieStoreId
-  });
-
-  const tabs = [firstTab];
-  let offset = 0;
-  for (const item of items.slice(1)) {
-    offset++;
-    const params = {
-      title:  item.title,
-      url:    item.url,
-      active: firstRegularItemIndex == offset,
-      index:  firstTab.index + offset,
+    const firstTab = await browser.tabs.create({
       windowId,
-      discarded,
+      url:       items[0].url,
+      active:    firstRegularItemIndex == 0,
+      discarded: discarded && firstRegularItemIndex != 0 && !GROUP_TAB_MATCHER.test(items[0].url),
       cookieStoreId
-    };
-    if (params.active ||
-        GROUP_TAB_MATCHER.test(params.url) ||
-        /^about:/.test(params.url)) // discarded tab cannot be opened with any about: URL
-      params.discarded = false;
-    if (!params.discarded) // title cannot be set for non-discarded tabs
-      params.title = null;
-    tabs.push(await browser.tabs.create(params));
-  }
+    });
 
-  await browser.runtime.sendMessage(TST_ID, {
-    type: 'set-tree-structure',
-    tabs: tabs.map(tab => tab.id),
-    structure
-  });
+    const tabs = [firstTab];
+    let offset = 0;
+    for (const item of items.slice(1)) {
+      offset++;
+      const params = {
+        title:  item.title,
+        url:    item.url,
+        active: firstRegularItemIndex == offset,
+        index:  firstTab.index + offset,
+        windowId,
+        discarded,
+        cookieStoreId
+      };
+      if (params.active ||
+          GROUP_TAB_MATCHER.test(params.url) ||
+          /^about:/.test(params.url)) // discarded tab cannot be opened with any about: URL
+        params.discarded = false;
+      if (!params.discarded) // title cannot be set for non-discarded tabs
+        params.title = null;
+      tabs.push(await browser.tabs.create(params));
+    }
+
+    await browser.runtime.sendMessage(TST_ID, {
+      type: 'set-tree-structure',
+      tabs: tabs.map(tab => tab.id),
+      structure
+    });
   }
   catch(error) {
     console.error(error);
