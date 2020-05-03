@@ -79,7 +79,7 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
       params.title = null;
     params.index = firstTab.index + (++offset);
     if (cookieStoreId)
-      params.cookieStoreId = options.cookieStoreId;
+      params.cookieStoreId = cookieStoreId;
     tabs.push(await browser.tabs.create(params));
   }
 
