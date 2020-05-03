@@ -62,6 +62,12 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
 
   const firstRegularItemIndex = items.findIndex(item => !GROUP_TAB_MATCHER.test(item.url));
 
+  await browser.runtime.sendMessage(TST_ID, {
+    type: 'block-grouping',
+    windowId
+  });
+
+  try {
   const firstTab = await browser.tabs.create({
     windowId,
     url:       items[0].url,
@@ -96,6 +102,14 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
     type: 'set-tree-structure',
     tabs: tabs.map(tab => tab.id),
     structure
+  });
+  }
+  catch(error) {
+    console.error(error);
+  }
+  await browser.runtime.sendMessage(TST_ID, {
+    type: 'unblock-grouping',
+    windowId
   });
 }
 
