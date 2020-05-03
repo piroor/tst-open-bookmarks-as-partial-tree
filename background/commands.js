@@ -6,6 +6,7 @@
 'use strict';
 
 import {
+  countMatched,
   configs
 } from '/common/common.js';
 
@@ -16,6 +17,7 @@ const DESCENDANT_MATCHER = /^(>+) /;
 
 const FORBIDDEN_URL_MATCHER = /^(about|chrome|resource|file):/;
 const ALLOWED_URL_MATCHER = /^about:blank(\?|$)/;
+const GROUP_TAB_MATCHER = /^ext\+treestyletab:group/;
 
 
 export async function openBookmarksWithStructure(items, { discarded, cookieStoreId } = {}) {
@@ -58,26 +60,33 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
   const window   = await browser.windows.getCurrent({ populate: true });
   const windowId = window.id;
 
+  const firstRegularItemIndex = items.findIndex(item => !GROUP_TAB_MATCHER.test(item.url));
+
   const firstTab = await browser.tabs.create({
     windowId,
-    url:    items[0].url,
-    active: true,
+    url:       items[0].url,
+    active:    firstRegularItemIndex == 0,
+    discarded: discarded && firstRegularItemIndex != 0 && !GROUP_TAB_MATCHER.test(items[0].url),
     cookieStoreId
   });
 
   const tabs = [firstTab];
   let offset = 0;
   for (const item of items.slice(1)) {
+    offset++;
     const params = {
-      title: item.title,
-      url:   item.url,
-      index: firstTab.index + (++offset),
+      title:  item.title,
+      url:    item.url,
+      active: firstRegularItemIndex == offset,
+      index:  firstTab.index + offset,
       windowId,
       discarded,
       cookieStoreId
     };
-    if (/^about:/.test(params.url))
-      params.discarded = false; // discarded tab cannot be opened with any about: URL
+    if (params.active ||
+        GROUP_TAB_MATCHER.test(params.url) ||
+        /^about:/.test(params.url)) // discarded tab cannot be opened with any about: URL
+      params.discarded = false;
     if (!params.discarded) // title cannot be set for non-discarded tabs
       params.title = null;
     tabs.push(await browser.tabs.create(params));
@@ -88,4 +97,57 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
     tabs: tabs.map(tab => tab.id),
     structure
   });
+}
+
+async function collectBookmarkItems(root, recursively) {
+  let items = await browser.bookmarks.getChildren(root.id);
+  if (recursively) {
+    let expandedItems = [];
+    for (const item of items) {
+      switch (item.type) {
+        case 'bookmark':
+          expandedItems.push(item);
+          break;
+        case 'folder':
+          expandedItems = expandedItems.concat(await collectBookmarkItems(item, recursively));
+          break;
+      }
+    }
+    items = expandedItems;
+  }
+  else {
+    items = items.filter(item => item.type == 'bookmark');
+  }
+  if (countMatched(items, item => !DESCENDANT_MATCHER.test(item.title)) > 1) {
+    for (const item of items) {
+      item.title = DESCENDANT_MATCHER.test(item.title) ?
+        item.title.replace(DESCENDANT_MATCHER, '>$1 ') :
+        `> ${item.title}`;
+    }
+    items.unshift({
+      title:     '',
+      url:       `ext+treestyletab:group?title=${encodeURIComponent(root.title)}&temporaryAggressive=true`,
+      discarded: false
+    });
+  }
+  return items;
+}
+
+export async function openAllBookmarksWithStructure(id, { discarded, cookieStoreId, recursively } = {}) {
+  if (typeof discarded == 'undefined')
+    discarded = configs.openDiscarded;
+
+  let [item,] = await browser.bookmarks.get(id);
+  if (!item)
+    return;
+
+  if (item.type != 'folder') {
+    item = await browser.bookmarks.get(item.parentId);
+    if (Array.isArray(item))
+      item = item[0];
+  }
+
+  const items = await collectBookmarkItems(item, recursively);
+
+  openBookmarksWithStructure(items, { discarded, cookieStoreId });
 }

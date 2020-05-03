@@ -40,13 +40,32 @@ function getSafeCreateParams(params) {
 
 const mItemsById = {
   'openPartialTreeFromHere': {
-    title: browser.i18n.getMessage('context_openPartialTreeFromHere_label')
+    title: browser.i18n.getMessage('context_openPartialTreeFromHere_label'),
+    isPartialTree: true
   },
   'openPartialTreeFromHere:container': {
-    title: browser.i18n.getMessage('context_openPartialTreeFromHere_label')
+    title: browser.i18n.getMessage('context_openPartialTreeFromHere_label'),
+    isPartialTree: true
+  },
+  'openAll': {
+    title: browser.i18n.getMessage('context_openAll_label'),
+    isFolder: true
+  },
+  'openAll:container': {
+    title: browser.i18n.getMessage('context_openAll_label'),
+    isFolder: true
+  },
+  'openAllRecursively': {
+    title: browser.i18n.getMessage('context_openAllRecursively_label'),
+    isFolder: true
+  },
+  'openAllRecursively:container': {
+    title: browser.i18n.getMessage('context_openAllRecursively_label'),
+    isFolder: true
   }
 };
 const mItems = [];
+const mNonContainerItems = [];
 const mContainerMenuItems = [];
 for (const id of Object.keys(mItemsById)) {
   const item = mItemsById[id];
@@ -57,7 +76,12 @@ for (const id of Object.keys(mItemsById)) {
   mItems.push(item);
   if (id.endsWith(':container')) {
     mContainerMenuItems.push(item);
+    item.configKey = item.id.replace(/:container$/, '');
     item.children = [];
+  }
+  else {
+    item.configKey = item.id;
+    mNonContainerItems.push(item);
   }
 }
 for (const item of mItems) {
@@ -122,10 +146,10 @@ ContextualIdentities.onUpdated.addListener(reserveToRefreshContainerItems);
 
 browser.menus.onClicked.addListener(async info => {
   const [, menuItemId, parameters] = info.menuItemId.match(/^([^:]+)(?::(.*))?/);
+  const cookieStoreId = parameters && parameters.replace(/^container:/, '');
   switch (menuItemId) {
     case 'openPartialTreeFromHere': {
       const partialTreeItems = await Bookmark.getPartialTree(info.bookmarkId);
-      const cookieStoreId = parameters && parameters.replace(/^container:/, '');
       if (cookieStoreId && cookieStoreId != 'default')
         Commands.openBookmarksWithStructure(partialTreeItems, {
           cookieStoreId
@@ -133,6 +157,27 @@ browser.menus.onClicked.addListener(async info => {
       else
         Commands.openBookmarksWithStructure(partialTreeItems);
     }; break;
+
+    case 'openAll':
+      if (cookieStoreId && cookieStoreId != 'default')
+        Commands.openAllBookmarksWithStructure(info.bookmarkId, {
+          cookieStoreId
+        });
+      else
+        Commands.openAllBookmarksWithStructure(info.bookmarkId);
+      break;
+
+    case 'openAllRecursively':
+      if (cookieStoreId && cookieStoreId != 'default')
+        Commands.openAllBookmarksWithStructure(info.bookmarkId, {
+          cookieStoreId,
+          recursively: true
+        });
+      else
+        Commands.openAllBookmarksWithStructure(info.bookmarkId, {
+          recursively: true
+        });
+      break;
   }
 });
 
@@ -150,17 +195,31 @@ browser.menus.onShown.addListener(async info => {
       partialTreeItems = await Bookmark.getPartialTree(item);
   }
 
-  mItemsById['openPartialTreeFromHere:container'].visible = !!(
-    partialTreeItems.length > 1 &&
-    configs.context_openPartialTreeFromHere &&
-    configs.container_openPartialTreeFromHere &&
-    mItemsById['openPartialTreeFromHere:container'].children.length > 0
-  );
-  mItemsById.openPartialTreeFromHere.visible = !!(
-    partialTreeItems.length > 1 &&
-    configs.context_openPartialTreeFromHere &&
-    !mItemsById['openPartialTreeFromHere:container'].visible
-  );
+  for (const item of mContainerMenuItems) {
+    const visible = item.isPartialTree ?
+      partialTreeItems.length > 1 :
+      item.isFolder ?
+        isFolder :
+        true;
+    item.visible = !!(
+      visible &&
+      configs[`context_${item.configKey}`] &&
+      configs[`container_${item.configKey}`] &&
+      item.children.length > 0
+    );
+  }
+  for (const item of mNonContainerItems) {
+    const visible = item.isPartialTree ?
+      partialTreeItems.length > 1 :
+      item.isFolder ?
+        isFolder :
+        true;
+    item.visible = !!(
+      visible &&
+      configs[`context_${item.configKey}`] &&
+      !mItemsById[`${item.id}:container`].visible
+    );
+  }
 
   for (const item of mItems) {
     browser.menus.update(item.id, {

@@ -5,10 +5,18 @@
 
   "context_openPartialTreeFromHere_label": { "message": "この配下を部分的にツリーとして開く(&A)" },
   "context_openPartialTreeFromHere_description": { "message": "（※ツリー構造を含めて作成されたブックマーク項目上で利用でき、フォルダ内の項目のうち、指定の項目とその子孫のみを開くことができます）" },
+  "context_openAll_label": { "message": "ツリーとしてすべて開く(&A)" },
+  "context_openAllRecursively_label": { "message": "サブフォルダーも含めてツリーとしてすべて開く(&A)" },
 
-  "context_defaultContainer_label": { "message": "既定のコンテナー(&N)" },
+  "context_defaultContainer_label": { "message": "コンテナーなし(&N)" },
 
 
-  "config_container_label": { "message": "コンテナーを選択して開く" },
+  "config_context_caption": { "message": "ブックマークのコンテキストメニューに追加する項目" },
+  "config_show_label":      { "message": "表示する" },
+  "config_container_label": { "message": "コンテナーの仕様" },
+  "config_context_openPartialTreeFromHere_label": { "message": "この配下を部分的にツリーとして開く" },
+  "config_context_openAll_label":                 { "message": "ツリーとしてすべて開く" },
+  "config_context_openAllRecursively_label":      { "message": "サブフォルダーも含めてツリーとしてすべて開く" },
+
   "config_openDiscarded_label": { "message": "読み込みを保留した状態でタブを開く" }
 }

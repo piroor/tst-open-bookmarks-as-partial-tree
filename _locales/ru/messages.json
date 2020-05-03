@@ -4,7 +4,16 @@
 
   "context_openPartialTreeFromHere_label": { "message": "Открыть с дочерними" },
   "context_openPartialTreeFromHere_description": { "message": "(*пункт доступен на любой закладке сохраненной в составе дерева, позволяет открыть только указанную закладку и ее потомки)" },
+  "context_openAll_label": { "message": "Открыть все как дерево" },
+  "context_openAllRecursively_label": { "message": "Открыть все с подпапками" },
 
+  "context_defaultContainer_label": { "message": "Переоткрыть &без контейнера" },
+
+
+  "config_context_caption": { "message": "Пункты контекстного меню закладок" },
+  "config_context_openPartialTreeFromHere_label": { "message": "Открыть с дочерними" },
+  "config_context_openAll_label":                 { "message": "Открыть все как дерево" },
+  "config_context_openAllRecursively_label":      { "message": "Открыть все с подпапками" },
 
   "config_openDiscarded_label": { "message": "Открывать незагруженными" }
 }
