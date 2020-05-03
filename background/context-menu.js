@@ -41,30 +41,73 @@ function getSafeCreateParams(params) {
 const mItemsById = {
   'openPartialTreeFromHere': {
     title: browser.i18n.getMessage('context_openPartialTreeFromHere_label'),
+    configKey: 'openPartialTreeFromHere',
+    topLevel: true,
     isPartialTree: true
   },
   'openPartialTreeFromHere:container': {
     title: browser.i18n.getMessage('context_openPartialTreeFromHere_label'),
+    configKey: 'openPartialTreeFromHere',
+    topLevel: true,
     isPartialTree: true
   },
   'openAll': {
     title: browser.i18n.getMessage('context_openAll_label'),
+    configKey: 'openAll',
+    topLevel: true,
     isFolder: true
   },
   'openAll:container': {
     title: browser.i18n.getMessage('context_openAll_label'),
+    configKey: 'openAll',
+    topLevel: true,
     isFolder: true
   },
   'openAllRecursively': {
     title: browser.i18n.getMessage('context_openAllRecursively_label'),
+    configKey: 'openAllRecursively',
+    topLevel: true,
     isFolder: true
   },
   'openAllRecursively:container': {
     title: browser.i18n.getMessage('context_openAllRecursively_label'),
+    configKey: 'openAllRecursively',
+    topLevel: true,
+    isFolder: true
+  },
+
+  'groupedOpenAll': {
+    title: browser.i18n.getMessage('context_openAll_label'),
+    isFolder: true
+  },
+
+  'grouped:openAll': {
+    parentId: 'groupedOpenAll',
+    title: browser.i18n.getMessage('context_grouped_openAll_label'),
+    configKey: 'openAll',
+    isFolder: true
+  },
+  'grouped:openAll:container': {
+    parentId: 'groupedOpenAll',
+    title: browser.i18n.getMessage('context_grouped_openAll_label'),
+    configKey: 'openAll',
+    isFolder: true
+  },
+  'grouped:openAllRecursively': {
+    parentId: 'groupedOpenAll',
+    title: browser.i18n.getMessage('context_grouped_openAllRecursively_label'),
+    configKey: 'openAllRecursively',
+    isFolder: true
+  },
+  'grouped:openAllRecursively:container': {
+    parentId: 'groupedOpenAll',
+    title: browser.i18n.getMessage('context_grouped_openAllRecursively_label'),
+    configKey: 'openAllRecursively',
     isFolder: true
   }
 };
 const mItems = [];
+const mTopLevelItems = [];
 const mNonContainerItems = [];
 const mContainerMenuItems = [];
 for (const id of Object.keys(mItemsById)) {
@@ -72,17 +115,19 @@ for (const id of Object.keys(mItemsById)) {
   item.id        = id;
   item.contexts  = ['bookmark'];
   //item.icons = manifest.icons;
+  item.lastVisible = true;
 
   mItems.push(item);
+
   if (id.endsWith(':container')) {
     mContainerMenuItems.push(item);
-    item.configKey = item.id.replace(/:container$/, '');
     item.children = [];
   }
   else {
-    item.configKey = item.id;
     mNonContainerItems.push(item);
   }
+  if (item.topLevel)
+    mTopLevelItems.push(item);
 }
 for (const item of mItems) {
   browser.menus.create(getSafeCreateParams(item));
@@ -145,7 +190,7 @@ ContextualIdentities.onUpdated.addListener(reserveToRefreshContainerItems);
 
 
 browser.menus.onClicked.addListener(async info => {
-  const [, menuItemId, parameters] = info.menuItemId.match(/^([^:]+)(?::(.*))?/);
+  const [, menuItemId, parameters] = info.menuItemId.match(/^(?:grouped:)?([^:]+)(?::(.*))?/);
   const cookieStoreId = parameters && parameters.replace(/^container:/, '');
   switch (menuItemId) {
     case 'openPartialTreeFromHere': {
@@ -203,8 +248,9 @@ browser.menus.onShown.addListener(async info => {
         true;
     item.visible = !!(
       visible &&
-      configs[`context_${item.configKey}`] &&
-      configs[`container_${item.configKey}`] &&
+      (!('configKey' in item) ||
+       (configs[`context_${item.configKey}`] &&
+        configs[`container_${item.configKey}`])) &&
       item.children.length > 0
     );
   }
@@ -216,15 +262,33 @@ browser.menus.onShown.addListener(async info => {
         true;
     item.visible = !!(
       visible &&
-      configs[`context_${item.configKey}`] &&
-      !mItemsById[`${item.id}:container`].visible
+      (!('configKey' in item) ||
+       configs[`context_${item.configKey}`]) &&
+      (!mItemsById[`${item.id}:container`] ||
+       !mItemsById[`${item.id}:container`].visible)
     );
   }
 
+  mItemsById.groupedOpenAll.visible = !!(
+    mItemsById.groupedOpenAll.visible &&
+    mTopLevelItems.filter(item => item.visible).length > 1
+  );
+  if (mItemsById.groupedOpenAll.visible) {
+    for (const item of mTopLevelItems) {
+      item.visible = false;
+    }
+  }
+
+  let updateCount = 0;
   for (const item of mItems) {
+    if (item.visible == item.lastVisible)
+      continue;
     browser.menus.update(item.id, {
       visible: item.visible
     });
+    item.lastVisible = item.visible;
+    updateCount++;
   }
-  browser.menus.refresh();
+  if (updateCount > 0)
+    browser.menus.refresh();
 });
