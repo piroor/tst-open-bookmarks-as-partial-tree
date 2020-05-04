@@ -158,7 +158,8 @@ async function refreshContainerItems() {
     parent.children.push(separator);
     browser.menus.create(separator);
   }
-  await ContextualIdentities.forEach(identity => {
+  await ContextualIdentities.initialized;
+  ContextualIdentities.forEach(identity => {
     for (const parent of mContainerMenuItems) {
       const id = `${parent.id}:${identity.cookieStoreId}`;
       const item = {

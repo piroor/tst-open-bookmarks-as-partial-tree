@@ -8,7 +8,7 @@
 import EventListenerManager from '/extlib/EventListenerManager.js';
 
 const mContextualIdentities = new Map();
-const mInitialized = new Promise(async (resolve, _reject) => {
+export const initialized = new Promise(async (resolve, _reject) => {
   const identities = await browser.contextualIdentities.query({});
   for (const identity of identities) {
     mContextualIdentities.set(identity.cookieStoreId, fixupIcon(identity));
@@ -16,13 +16,11 @@ const mInitialized = new Promise(async (resolve, _reject) => {
   resolve();
 });
 
-export async function get(id) {
-  await mInitialized;
+export function get(id) {
   return mContextualIdentities.get(id);
 }
 
-export async function getIdFromName(name) {
-  await mInitialized;
+export function getIdFromName(name) {
   for (const identity of mContextualIdentities.values()) {
     if (identity.name.toLowerCase() == name.toLowerCase())
       return identity.cookieStoreId;
@@ -30,13 +28,11 @@ export async function getIdFromName(name) {
   return null;
 }
 
-export async function getCount() {
-  await mInitialized;
+export function getCount() {
   return mContextualIdentities.size;
 }
 
-export async function forEach(callback) {
-  await mInitialized;
+export function forEach(callback) {
   for (const identity of mContextualIdentities.values()) {
     callback(identity);
   }
