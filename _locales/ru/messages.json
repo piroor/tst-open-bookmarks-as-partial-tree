@@ -1,7 +1,4 @@
 {
-  "extensionName": { "message": "TST Open Bookmarks as Partial Tree" },
-
-
   "context_openPartialTreeFromHere_label": { "message": "Открыть с дочерними" },
   "context_openPartialTreeFromHere_description": { "message": "(*пункт доступен на любой закладке сохраненной в составе дерева, позволяет открыть только указанную закладку и ее потомки)" },
   "context_openAll_label": { "message": "Открыть все как дерево" },
