@@ -1,6 +1,8 @@
 # History
 
  - master/HEAD
+ - 1.0.2 (2020.5.5)
+   * Better compatibility with [Container Bookmarks](https://addons.mozilla.org/firefox/addon/container-bookmarks/): now TST respects container information stored to bookmarks when TST opens bookmarks as a tree.
  - 1.0.1 (2020.5.4)
    * Fix mistranslation in the `ja` locale.
  - 1.0.0 (2020.5.4)
