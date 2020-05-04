@@ -1,0 +1,28 @@
+{
+  "context_openAll_label": {
+    "message": "모두 트리로 열기(&A)",
+    "hash": "764953a77356c4ff886ad85096e3894c"
+  },
+  "context_openAllRecursively_label": {
+    "message": "보조 폴더도 포함하여 모두 트리로 열기(&A)",
+    "hash": "b977fd26ec4bf634094fe7b6a57a1759"
+  },
+
+  "context_defaultContainer_label": {
+    "message": "컨테이너 없음(&N)",
+    "hash": "62484898877c1c17dc4d60b12e127d45"
+  },
+
+
+  "config_context_caption": {
+    "message": "북마크의 콘텍스트 메뉴에 추가할 항목",
+    "hash": "36dd8dd508816eb6f87ccede44a66b18"
+  },
+  "config_context_openAll_label":                 { "message": "모두 트리로 열기" },
+  "config_context_openAllRecursively_label":      { "message": "보조 폴더도 포함하여 모두 트리로 열기" },
+
+  "config_openDiscarded_label": {
+    "message": "읽기를 보류하고 탭을 열기.",
+    "hash": "509c995c21ab51263ec0f69c24e360b5"
+  }
+}

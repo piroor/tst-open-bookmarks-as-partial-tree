@@ -1,0 +1,13 @@
+{
+  "context_openAll_label": { "message": "&Alle als Zweig laden" },
+  "context_openAllRecursively_label": { "message": "&Alle als Zweig inklusive Unterverzeichnisse laden" },
+
+  "context_defaultContainer_label": { "message": "Keine Tab-&Umgebung" },
+
+
+  "config_context_caption": { "message": "Zusätzliche Einträge im Lesezeichen-Kontextmenü" },
+  "config_context_openAll_label":                 { "message": "Alle als Zweig laden" },
+  "config_context_openAllRecursively_label":      { "message": "Alle als Zweig inklusive Unterverzeichnisse laden" },
+
+  "config_openDiscarded_label": { "message": "Tabs ausstehend lassen bis sie aktiv werden" }
+}

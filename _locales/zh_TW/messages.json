@@ -1,0 +1,8 @@
+{
+  "context_openAll_label": { "message": "開啟所有書籤為樹(&A)" },
+
+  "context_defaultContainer_label": { "message": "無容器(&N)" },
+
+
+  "config_context_openAll_label":                 { "message": "開啟所有書籤為樹" }
+}

@@ -1,0 +1,28 @@
+{
+  "context_openAll_label": {
+    "message": "将全部项打开为一个标签树(&A)",
+    "hash": "764953a77356c4ff886ad85096e3894c"
+  },
+  "context_openAllRecursively_label": {
+    "message": "将全部项打开为一个包含子文件夹的标签树(&A)",
+    "hash": "b977fd26ec4bf634094fe7b6a57a1759"
+  },
+
+  "context_defaultContainer_label": {
+    "message": "无身份(&N)",
+    "hash": "62484898877c1c17dc4d60b12e127d45"
+  },
+
+
+  "config_context_caption": {
+    "message": "附加的书签上下文菜单项",
+    "hash": "36dd8dd508816eb6f87ccede44a66b18"
+  },
+  "config_context_openAll_label":                 { "message": "将全部项打开为一个标签树" },
+  "config_context_openAllRecursively_label":      { "message": "将全部项打开为一个包含子文件夹的标签树" },
+
+  "config_openDiscarded_label": {
+    "message": "保持这些标签页一直挂起直到它们变为活动状态",
+    "hash": "509c995c21ab51263ec0f69c24e360b5"
+  }
+}
