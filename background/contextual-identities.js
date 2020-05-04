@@ -21,6 +21,15 @@ export async function get(id) {
   return mContextualIdentities.get(id);
 }
 
+export async function getIdFromName(name) {
+  await mInitialized;
+  for (const identity of mContextualIdentities.values()) {
+    if (identity.name.toLowerCase() == name.toLowerCase())
+      return identity.cookieStoreId;
+  }
+  return null;
+}
+
 export async function getCount() {
   await mInitialized;
   return mContextualIdentities.size;

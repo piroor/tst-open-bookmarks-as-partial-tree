@@ -10,10 +10,13 @@ import {
   configs
 } from '/common/common.js';
 
+import * as ContextualIdentities from './contextual-identities.js';
+
 const TST_ID = 'treestyletab@piro.sakura.ne.jp';
 
 
 const DESCENDANT_MATCHER = /^(>+) /;
+const CONTAINER_MATCHER = /#container-(.+)$/;
 
 const FORBIDDEN_URL_MATCHER = /^(about|chrome|resource|file):/;
 const ALLOWED_URL_MATCHER = /^about:blank(\?|$)/;
@@ -26,11 +29,20 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
 
   const lastItemIndicesWithLevel = new Map();
   let lastMaxLevel = 0;
+  const promisedCookieStoreIds = [];
   const structure = items.reduce((result, item, index) => {
-    if (item.url &&
-        FORBIDDEN_URL_MATCHER.test(item.url) &&
-        !ALLOWED_URL_MATCHER.test(item.url))
-      item.url = `about:blank?${item.url}`;
+    if (item.url) {
+      if (CONTAINER_MATCHER.test(item.url)) {
+        promisedCookieStoreIds.push(ContextualIdentities.getIdFromName(decodeURIComponent(RegExp.$1)));
+      }
+      else {
+        promisedCookieStoreIds.push(null);
+      }
+
+      if (FORBIDDEN_URL_MATCHER.test(item.url) &&
+          !ALLOWED_URL_MATCHER.test(item.url))
+        item.url = `about:blank?${item.url}`;
+    }
 
     let level = 0;
     if (lastItemIndicesWithLevel.size > 0 &&
@@ -57,11 +69,15 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
     return result;
   }, []);
 
-  const window   = await browser.windows.getCurrent({ populate: true });
-  const windowId = window.id;
+  const [window, ...cookieStoreIds] = await Promise.all([
+    browser.windows.getCurrent({ populate: true }),
+    ...promisedCookieStoreIds
+  ]);
+  console.log(cookieStoreIds);
 
   const firstRegularItemIndex = items.findIndex(item => !GROUP_TAB_MATCHER.test(item.url));
 
+  const windowId = window.id;
   await browser.runtime.sendMessage(TST_ID, {
     type: 'block-grouping',
     windowId
@@ -73,7 +89,7 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
       url:       items[0].url,
       active:    firstRegularItemIndex == 0,
       discarded: discarded && firstRegularItemIndex != 0 && !GROUP_TAB_MATCHER.test(items[0].url),
-      cookieStoreId
+      cookieStoreId: cookieStoreId || cookieStoreIds[0]
     });
 
     const tabs = [firstTab];
@@ -87,7 +103,7 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
         index:  firstTab.index + offset,
         windowId,
         discarded,
-        cookieStoreId
+        cookieStoreId: cookieStoreId || cookieStoreIds[offset]
       };
       if (params.active ||
           GROUP_TAB_MATCHER.test(params.url) ||
