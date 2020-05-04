@@ -1,6 +1,8 @@
 # History
 
  - master/HEAD
+ - 1.0.1 (2020.5.4)
+   * Fix mistranslation in the `ja` locale.
  - 1.0.0 (2020.5.4)
    * Initial release.
    * Some localizations are ported from [Tree Style Tab](https://github.com/piroor/treestyletab/).

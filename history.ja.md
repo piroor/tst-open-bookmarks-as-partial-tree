@@ -1,6 +1,8 @@
 # 更新履歴
 
  - master/HEAD
+ - 1.0.1 (2020.5.4)
+   * 日本語ロケールの誤訳を修正
  - 1.0.0 (2020.5.4)
    * 最初のリリース
    * [Tree Style Tab](https://github.com/piroor/treestyletab/)から以下の言語リソースを部分的に継承
