@@ -14,7 +14,7 @@
 
   "config_context_caption": { "message": "ブックマークのコンテキストメニューに追加する項目" },
   "config_show_label":      { "message": "表示する" },
-  "config_container_label": { "message": "コンテナーの仕様" },
+  "config_container_label": { "message": "コンテナーの使用" },
   "config_context_openPartialTreeFromHere_label": { "message": "この配下を部分的にツリーとして開く" },
   "config_context_openAll_label":                 { "message": "ツリーとしてすべて開く" },
   "config_context_openAllRecursively_label":      { "message": "サブフォルダーも含めてツリーとしてすべて開く" },
