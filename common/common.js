@@ -9,8 +9,8 @@ import Configs from '/extlib/Configs.js';
 
 export const configs = new Configs({
   context_openPartialTreeFromHere: true,
-  context_openAll: true,
-  context_openAllRecursively: false,
+  context_openAll: false,
+  context_openAllRecursively: true,
 
   container_openPartialTreeFromHere: false,
   container_openAll: false,
