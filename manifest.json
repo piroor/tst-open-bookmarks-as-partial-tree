@@ -26,7 +26,8 @@
   "default_locale": "en",
   "applications": {
     "gecko": {
-      "id": "tst-open-bookmarks-as-partial-tree@piro.sakura.ne.jp"
+      "id": "tst-open-bookmarks-as-partial-tree@piro.sakura.ne.jp",
+      "strict_min_version": "65.0"
     }
   }
 }
