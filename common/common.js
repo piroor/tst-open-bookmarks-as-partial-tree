@@ -13,7 +13,7 @@ export const configs = new Configs({
   context_openAllRecursively: false,
 
   container_openPartialTreeFromHere: false,
-  container_openAll: true,
+  container_openAll: false,
   container_openAllRecursively: true,
 
   openDiscarded: true,
