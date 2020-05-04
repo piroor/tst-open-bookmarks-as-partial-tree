@@ -1,4 +1,6 @@
 {
+  "extensionName": { "message": "TST Open Bookmarks as Partial Tree" },
+
   "context_openAll_label": { "message": "開啟所有書籤為樹(&A)" },
 
   "context_defaultContainer_label": { "message": "無容器(&N)" },

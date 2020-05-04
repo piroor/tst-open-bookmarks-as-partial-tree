@@ -1,4 +1,5 @@
 {
+  "extensionName": { "message": "TST Open Bookmarks as Partial Tree" },
   "context_openAll_label": { "message": "&Alle als Zweig laden" },
   "context_openAllRecursively_label": { "message": "&Alle als Zweig inklusive Unterverzeichnisse laden" },
 

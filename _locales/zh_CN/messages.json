@@ -1,4 +1,6 @@
 {
+  "extensionName": { "message": "TST Open Bookmarks as Partial Tree" },
+
   "context_openAll_label": {
     "message": "将全部项打开为一个标签树(&A)",
     "hash": "764953a77356c4ff886ad85096e3894c"
