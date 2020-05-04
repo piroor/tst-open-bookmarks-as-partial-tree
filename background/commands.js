@@ -16,7 +16,6 @@ const TST_ID = 'treestyletab@piro.sakura.ne.jp';
 
 
 const DESCENDANT_MATCHER = /^(>+) /;
-const CONTAINER_MATCHER = /#container-(.+)$/;
 
 const FORBIDDEN_URL_MATCHER = /^(about|chrome|resource|file):/;
 const ALLOWED_URL_MATCHER = /^about:blank(\?|$)/;
@@ -30,10 +29,14 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
   const lastItemIndicesWithLevel = new Map();
   let lastMaxLevel = 0;
   const promisedCookieStoreIds = [];
+  const containerMatcher = new RegExp(`#${configs.containerRedirectKey}-(.+)$`);
   const structure = items.reduce((result, item, index) => {
     if (item.url) {
-      if (CONTAINER_MATCHER.test(item.url)) {
-        promisedCookieStoreIds.push(ContextualIdentities.getIdFromName(decodeURIComponent(RegExp.$1)));
+      // Respect container type stored by Container Bookmarks
+      // https://addons.mozilla.org/firefox/addon/container-bookmarks/
+      const matchedContainer = item.url.match(containerMatcher);
+      if (matchedContainer) {
+        promisedCookieStoreIds.push(ContextualIdentities.getIdFromName(decodeURIComponent(matchedContainer[matchedContainer.length-1])));
       }
       else {
         promisedCookieStoreIds.push(null);
@@ -73,7 +76,6 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
     browser.windows.getCurrent({ populate: true }),
     ...promisedCookieStoreIds
   ]);
-  console.log(cookieStoreIds);
 
   const firstRegularItemIndex = items.findIndex(item => !GROUP_TAB_MATCHER.test(item.url));
 

@@ -20,5 +20,10 @@
   "config_context_openAll_label":                 { "message": "ツリーとしてすべて開く" },
   "config_context_openAllRecursively_label":      { "message": "サブフォルダーも含めてツリーとしてすべて開く" },
 
-  "config_openDiscarded_label": { "message": "読み込みを保留した状態でタブを開く" }
+  "config_openDiscarded_label": { "message": "読み込みを保留した状態でタブを開く" },
+
+  "config_containerRedirectKey_label_before": { "message": "" },
+  "config_containerRedirectKey_containerBookmarks_label": { "message": "Container Bookmarks" },
+  "config_containerRedirectKey_containerBookmarks_uri": { "message": "https://addons.mozilla.org/firefox/addon/container-bookmarks/" },
+  "config_containerRedirectKey_label_after": { "message": "のリダイレクトキー（※当該アドオンの設定画面の値と揃えて下さい）:" }
 }

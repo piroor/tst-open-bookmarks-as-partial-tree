@@ -17,6 +17,10 @@ export const configs = new Configs({
   container_openAllRecursively: true,
 
   openDiscarded: true,
+
+  // This must be same to the redirect key of Container Bookmarks.
+  // https://addons.mozilla.org/firefox/addon/container-bookmarks/
+  containerRedirectKey: 'container',
 }, {
   localKeys: [
   ]
