@@ -2,7 +2,7 @@
 
  - master/HEAD
  - 1.0.3 (2020.5.5)
-   * Container Bookmarks.に関するロケールのミスを修正
+   * Container Bookmarksに関するロケールのミスを修正
  - 1.0.2 (2020.5.5)
    * [Container Bookmarks](https://addons.mozilla.org/firefox/addon/container-bookmarks/)との互換性を向上し、ブックマークをツリーとして開く際にコンテナーの情報を検出できた場合はブックマークを直接そのコンテナーのタブで開くようにした
  - 1.0.1 (2020.5.4)
