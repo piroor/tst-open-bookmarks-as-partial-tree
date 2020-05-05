@@ -1,6 +1,8 @@
 # History
 
  - master/HEAD
+ - 1.0.3 (2020.5.5)
+   * Fix locales around links to Container Bookmarks.
  - 1.0.2 (2020.5.5)
    * Better compatibility with [Container Bookmarks](https://addons.mozilla.org/firefox/addon/container-bookmarks/): now this respects container information stored to bookmarks when this opens bookmarks as a tree.
  - 1.0.1 (2020.5.4)
