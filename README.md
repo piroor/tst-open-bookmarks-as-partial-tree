@@ -19,3 +19,5 @@ This addon adds a new context menu command "Open as a Partial Tree from here" on
 
 One more addition, this addon provides ability to open bookmarks in container tabs with a tree structure. The feature can be activated on the options page.
 ![(Screenshot)](screenshots/options.png)
+
+This addon is compatible to another addon [Container Bookmarks.](https://addons.mozilla.org/firefox/addon/container-bookmarks/) If bookmarks have any container information saved by Container Bookmarks, this addon respects it and opens bookmarks in container tabs.
