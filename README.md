@@ -1,6 +1,6 @@
 # TST Open Bookmarks as Partial Tree
 
-[![Build Status](https://travis-ci.org/piroor/tst-open-bookmarks-as-partial-tree.svg?branch=master)](https://travis-ci.org/piroor/tst-open-bookmarks-as-partial-tree)
+[![Build Status](https://travis-ci.org/piroor/tst-open-bookmarks-as-partial-tree.svg?branch=trunk)](https://travis-ci.org/piroor/tst-open-bookmarks-as-partial-tree)
 
 This extends another addon [Tree Style Tab (TST)](https://addons.mozilla.org/firefox/addon/tree-style-tab/).
 
