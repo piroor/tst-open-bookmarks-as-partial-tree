@@ -1,6 +1,8 @@
 # 更新履歴
 
  - master/HEAD
+ - 1.0.4 (2020.7.29)
+   * Managed Storageへの対応を改善
  - 1.0.3 (2020.5.5)
    * Container Bookmarksに関するロケールのミスを修正
  - 1.0.2 (2020.5.5)
