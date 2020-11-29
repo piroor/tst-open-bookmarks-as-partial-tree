@@ -1,18 +1,29 @@
 {
   "extensionName": { "message": "TST Open Bookmarks as Partial Tree" },
+  "extensionDescription": { "message": "Позволяет открывать отдельное дерево или его часть, если дерево предварительно сохранено в закладках из TST." },
+
 
   "context_openPartialTreeFromHere_label": { "message": "Открыть с дочерними" },
-  "context_openPartialTreeFromHere_description": { "message": "(*пункт доступен на любой закладке сохраненной в составе дерева, позволяет открыть только указанную закладку и ее потомки)" },
-  "context_openAll_label": { "message": "Открыть все как дерево" },
-  "context_openAllRecursively_label": { "message": "Открыть все с подпапками" },
+  "context_openPartialTreeFromHere_description": { "message": "( * пункт доступен на любой закладке сохраненной в составе дерева, позволяет открыть указанную закладку и ее потомки)" },
+  "context_openAll_label": { "message": "&Открыть как дерево" },
+  "context_openAllRecursively_label": { "message": "Открыть с &подпапками" },
+  "context_grouped_openAll_label": { "message": "Только этот уровень" },
+  "context_grouped_openAllRecursively_label": { "message": "Включая подпапки" },
 
-  "context_defaultContainer_label": { "message": "Переоткрыть &без контейнера" },
+  "context_defaultContainer_label": { "message": "&Без контейнера" },
 
 
   "config_context_caption": { "message": "Пункты контекстного меню закладок" },
+  "config_show_label":      { "message": "Показать" },
+  "config_container_label": { "message": "Выбор контейнера" },
   "config_context_openPartialTreeFromHere_label": { "message": "Открыть с дочерними" },
-  "config_context_openAll_label":                 { "message": "Открыть все как дерево" },
-  "config_context_openAllRecursively_label":      { "message": "Открыть все с подпапками" },
+  "config_context_openAll_label":                 { "message": "Открыть как дерево" },
+  "config_context_openAllRecursively_label":      { "message": "Открыть с подпапками" },
 
-  "config_openDiscarded_label": { "message": "Открывать незагруженными" }
+  "config_openDiscarded_label": { "message": "Открывать незагруженными" },
+
+  "config_containerRedirectKey_label_before": { "message": "Ключ перенаправления " },
+  "config_containerRedirectKey_containerBookmarks_label": { "message": "Container Bookmarks" },
+  "config_containerRedirectKey_containerBookmarks_uri": { "message": "https://addons.mozilla.org/firefox/addon/container-bookmarks/" },
+  "config_containerRedirectKey_label_after": { "message": " ( * установите значение как в параметрах Container Bookmarks):" }
 }
