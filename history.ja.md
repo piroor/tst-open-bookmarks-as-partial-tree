@@ -1,6 +1,8 @@
 # 更新履歴
 
  - master/HEAD
+ - 1.0.5 (2020.12.1)
+   * `ru`ロケール更新（by [wvxwxvw](https://github.com/wvxwxvw), thanks!）
  - 1.0.4 (2020.7.29)
    * Managed Storageへの対応を改善
  - 1.0.3 (2020.5.5)

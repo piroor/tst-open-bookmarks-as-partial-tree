@@ -1,6 +1,8 @@
 # History
 
  - master/HEAD
+ - 1.0.5 (2020.12.1)
+   * Update `ru` locale by [wvxwxvw](https://github.com/wvxwxvw). thanks!
  - 1.0.4 (2020.7.29)
    * Better support for the Managed Storage.
  - 1.0.3 (2020.5.5)
