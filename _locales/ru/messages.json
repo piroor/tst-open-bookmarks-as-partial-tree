@@ -7,8 +7,8 @@
   "context_openPartialTreeFromHere_description": { "message": "( * пункт доступен на любой закладке сохраненной в составе дерева, позволяет открыть указанную закладку и ее потомки)" },
   "context_openAll_label": { "message": "&Открыть как дерево" },
   "context_openAllRecursively_label": { "message": "Открыть с &подпапками" },
-  "context_grouped_openAll_label": { "message": "Только этот уровень" },
-  "context_grouped_openAllRecursively_label": { "message": "Включая подпапки" },
+  "context_grouped_openAll_label": { "message": "Без подпапок" },
+  "context_grouped_openAllRecursively_label": { "message": "С подпапками" },
 
   "context_defaultContainer_label": { "message": "&Без контейнера" },
 
