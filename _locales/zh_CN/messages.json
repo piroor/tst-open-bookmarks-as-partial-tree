@@ -1,6 +1,20 @@
 {
-  "extensionName": { "message": "TST Open Bookmarks as Partial Tree" },
-
+  "extensionName": {
+    "message": "TST Open Bookmarks as Partial Tree - TST 打开书签项为局部标签树",
+    "hash": "2812616f46acb992cd33ccdfec879de7"
+  },
+  "extensionDescription": {
+    "message": "提供一个功能，可以只将文件夹中的部分书签项打开为 Tree Style Tab 中的局部标签树。",
+    "hash": "efdf422ebab7c0fce468b5263d4818e7"
+  },
+  "context_openPartialTreeFromHere_label": {
+    "message": "从这里打开为一个局部标签树(&a)",
+    "hash": "c1e8e6d56ca3a3bf6c2acb97247539b9"
+  },
+  "context_openPartialTreeFromHere_description": {
+    "message": "（ * 可用于任何保存有标签树结构的书签项，并且允许您只打开一个文件夹中的指定项及其后代项）",
+    "hash": "9ed31fae0912f78ebc5e2736a65d5002"
+  },
   "context_openAll_label": {
     "message": "将全部项打开为一个标签树(&A)",
     "hash": "764953a77356c4ff886ad85096e3894c"
@@ -9,22 +23,62 @@
     "message": "将全部项打开为一个包含子文件夹的标签树(&A)",
     "hash": "b977fd26ec4bf634094fe7b6a57a1759"
   },
-
+  "context_grouped_openAll_label": {
+    "message": "仅此层级",
+    "hash": "8c52116e89fb4193c8498b5bc76c62da"
+  },
+  "context_grouped_openAllRecursively_label": {
+    "message": "包含子文件夹",
+    "hash": "c6985e06ef1e8e89f555efcaac1711fa"
+  },
   "context_defaultContainer_label": {
     "message": "无身份(&N)",
     "hash": "62484898877c1c17dc4d60b12e127d45"
   },
-
-
   "config_context_caption": {
     "message": "附加的书签上下文菜单项",
     "hash": "36dd8dd508816eb6f87ccede44a66b18"
   },
-  "config_context_openAll_label":                 { "message": "将全部项打开为一个标签树" },
-  "config_context_openAllRecursively_label":      { "message": "将全部项打开为一个包含子文件夹的标签树" },
-
+  "config_show_label": {
+    "message": "显示",
+    "hash": "9c02f13829a0c4ce5d57c1f7e0f37306"
+  },
+  "config_container_label": {
+    "message": "可选身份",
+    "hash": "732dfba8707863a20a75effcb5eb98ce"
+  },
+  "config_context_openPartialTreeFromHere_label": {
+    "message": "从这里打开为一个局部标签树",
+    "hash": "43d2e18025c8c2a97cb1779bc310d6df"
+  },
+  "config_context_openAll_label": {
+    "message": "将全部项打开为一个标签树",
+    "hash": "55d5210e3880fd39f70920a34e51c84c"
+  },
+  "config_context_openAllRecursively_label": {
+    "message": "将全部项打开为一个包含子文件夹的标签树",
+    "hash": "b984015e18665905ec353e92fcf93855"
+  },
   "config_openDiscarded_label": {
-    "message": "保持这些标签页一直挂起直到它们变为活动状态",
+    "message": "保持这些标签页一直休眠直到它们变为活动状态",
     "hash": "509c995c21ab51263ec0f69c24e360b5"
-  }
+  },
+  "config_containerRedirectKey_label_before": {
+    "message": "附加组件",
+    "hash": "cdb3f5c9a523a17f91b5fe036882fcb7"
+  },
+  "config_containerRedirectKey_containerBookmarks_label": {
+    "message": "Container Bookmarks - 身份书签项",
+    "hash": "ef42bb75344988254ad1d865379cc1e9"
+  },
+  "config_containerRedirectKey_containerBookmarks_uri": {
+    "message": "https://addons.mozilla.org/firefox/addon/container-bookmarks/",
+    "hash": "f9718dca0cd88d02d7dd293d849d997e"
+  },
+  "config_containerRedirectKey_label_after": {
+    "message": "的重定向关键字（ * 请设置一个和该附加组件选项页面对应项相同的值）：",
+    "hash": "e2564f5cf402519010af461a60e36863"
+  },
+
+  "__WET_LOCALE__": { "message": "zh_CN" }
 }
