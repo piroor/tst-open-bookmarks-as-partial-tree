@@ -1,7 +1,9 @@
 # History
 
  - master/HEAD
- - 1.0.6 (2025.5.5)
+ - 1.0.7 (2021.10.1)
+   * Add `zh-CN` locale by [NightSharp](https://github.com/NightSharp). thanks!
+ - 1.0.6 (2021.5.5)
    * Update `ru` locale by [wvxwxvw](https://github.com/wvxwxvw). thanks!
  - 1.0.5 (2020.12.1)
    * Update `ru` locale by [wvxwxvw](https://github.com/wvxwxvw). thanks!
