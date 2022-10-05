@@ -4,6 +4,9 @@
 
 This extends another addon [Tree Style Tab (TST)](https://addons.mozilla.org/firefox/addon/tree-style-tab/).
 
+* [Signed package on AMO](https://addons.mozilla.org/firefox/addon/tst-open-bookmarks-as-partial-/)
+* [Development builds for each commit are available at "Artifacts" of the CI/CD action](https://github.com/piroor/tst-open-bookmarks-as-partial-tree/actions?query=workflow%3ACI%2FCD)
+
 TST allows you to create bookmarks from a tabs tree. The tree structure are saved to created bookmarks as a prefix `>` in their title, like follwoing:
 
 * `A1`
