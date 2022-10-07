@@ -24,3 +24,11 @@ One more addition, this addon provides ability to open bookmarks in container ta
 ![(Screenshot)](screenshots/options.png)
 
 This addon is compatible to another addon [Container Bookmarks.](https://addons.mozilla.org/firefox/addon/container-bookmarks/) If bookmarks have any container information saved by Container Bookmarks, this addon respects it and opens bookmarks in container tabs.
+
+## Privacy Policy
+
+This software does not collect any privacy data automatically, but this includes ability to synchronize options across multiple devices automatically via Firefox Sync.
+Any data you input to options may be sent to Mozilla's Sync server, if you configure Firefox to activate Firefox Sync.
+
+このソフトウェアはいかなるプライバシー情報も自動的に収集しませんが、Firefox Syncを介して自動的に設定情報をデバイス間で同期する機能を含みます。
+Firefox Syncを有効化している場合、設定画面に入力されたデータは、Mozillaが運用するSyncサーバーに送信される場合があります。
