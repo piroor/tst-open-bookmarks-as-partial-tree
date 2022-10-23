@@ -1,6 +1,7 @@
 # History
 
  - master/HEAD
+   * Reduce memory allocation ([by @nirvdrum, thanks!](https://github.com/piroor/webextensions-lib-event-listener-manager/pull/1))
  - 1.0.7 (2021.10.1)
    * Add `zh-CN` locale by [NightSharp](https://github.com/NightSharp). thanks!
  - 1.0.6 (2021.5.5)
