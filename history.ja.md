@@ -2,7 +2,7 @@
 
  - master/HEAD
  - 1.0.8 (2022.11.3)
-   * メモリ消費を削減（[by @nirvdrum, thanks!](https://github.com/piroor/webextensions-lib-event-listener-manager/pull/1)）
+   * メモリ消費を削減（[by nirvdrum, thanks!](https://github.com/piroor/webextensions-lib-event-listener-manager/pull/1)）
  - 1.0.7 (2021.10.1)
    * `zh-CN`ロケール追加（by [NightSharp](https://github.com/NightSharp), thanks!）
  - 1.0.6 (2021.5.5)
