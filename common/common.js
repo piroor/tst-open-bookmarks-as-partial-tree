@@ -18,6 +18,9 @@ export const configs = new Configs({
 
   openDiscarded: true,
 
+  targetAddonId: null,
+  groupTabUrl: null,
+
   // This must be same to the redirect key of Container Bookmarks.
   // https://addons.mozilla.org/firefox/addon/container-bookmarks/
   containerRedirectKey: 'container',
@@ -84,4 +87,43 @@ export function countMatched(values, matcher) {
       count++;
   }
   return count;
+}
+
+
+const TST_ID = 'treestyletab@piro.sakura.ne.jp';
+const WS_ID  = 'sidebar@waterfox.net';
+
+export async function ensureTSTDetected() {
+  try {
+    if (await browser.runtime.sendMessage(TST_ID, { type: 'ping' })) {
+      configs.targetAddonId = TST_ID;
+      configs.groupTabUrl   = 'ext+treestyletab:group';
+      return;
+    }
+  }
+  catch(error) {
+  }
+  try {
+    if (await browser.runtime.sendMessage(WS_ID, { type: 'ping' })) {
+      configs.targetAddonId = WS_ID;
+      configs.groupTabUrl   = 'ext+ws:group';
+      return;
+    }
+  }
+  catch(error) {
+  }
+  throw new Error('Missing dependency: you need to install Tree Style Tab addon also');
+}
+
+export async function callTSTAPI(message) {
+  if (!configs.targetAddonId)
+    await ensureTSTDetected();
+
+  try {
+    return browser.runtime.sendMessage(configs.targetAddonId, message);
+  }
+  catch(error) {
+    configs.targetAddonId = null;
+    throw error;
+  }
 }

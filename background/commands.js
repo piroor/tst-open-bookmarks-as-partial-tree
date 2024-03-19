@@ -7,20 +7,18 @@
 
 import {
   countMatched,
-  configs
+  configs,
+  ensureTSTDetected,
+  callTSTAPI,
 } from '/common/common.js';
 
 import * as ContextualIdentities from './contextual-identities.js';
-
-const TST_ID = 'treestyletab@piro.sakura.ne.jp';
-
 
 const DESCENDANT_MATCHER = /^(>+) /;
 
 const FORBIDDEN_URL_MATCHER = /^(about|chrome|resource|file):/;
 const ALLOWED_URL_MATCHER = /^about:blank(\?|$)/;
-const GROUP_TAB_MATCHER = /^ext\+treestyletab:group/;
-
+const GROUP_TAB_MATCHER = /^ext\+(treestyletab|ws):group/;
 
 export async function openBookmarksWithStructure(items, { discarded, cookieStoreId } = {}) {
   if (typeof discarded == 'undefined')
@@ -77,13 +75,13 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
   const firstRegularItemIndex = items.findIndex(item => !GROUP_TAB_MATCHER.test(item.url));
 
   const windowId = window.id;
-  await browser.runtime.sendMessage(TST_ID, {
+  await callTSTAPI({
     type: 'block-grouping',
     windowId
   });
 
   try {
-    const firstTab = await browser.runtime.sendMessage(TST_ID, { type: 'create', params: {
+    const firstTab = await callTSTAPI({ type: 'create', params: {
       windowId,
       url:       items[0].url,
       active:    firstRegularItemIndex == 0,
@@ -110,10 +108,10 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
         params.discarded = false;
       if (!params.discarded) // title cannot be set for non-discarded tabs
         params.title = null;
-      tabs.push(await browser.runtime.sendMessage(TST_ID, { type: 'create', params }));
+      tabs.push(await callTSTAPI({ type: 'create', params }));
     }
 
-    await browser.runtime.sendMessage(TST_ID, {
+    await callTSTAPI({
       type: 'set-tree-structure',
       tabs: tabs.map(tab => tab.id),
       structure
@@ -122,13 +120,15 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
   catch(error) {
     console.error(error);
   }
-  await browser.runtime.sendMessage(TST_ID, {
+  await callTSTAPI({
     type: 'unblock-grouping',
     windowId
   });
 }
 
 async function collectBookmarkItems(root, recursively) {
+  await ensureTSTDetected();
+
   let items = await browser.bookmarks.getChildren(root.id);
   if (recursively) {
     let expandedItems = [];
@@ -155,7 +155,7 @@ async function collectBookmarkItems(root, recursively) {
     }
     items.unshift({
       title:     '',
-      url:       `ext+treestyletab:group?title=${encodeURIComponent(root.title)}&temporaryAggressive=true`,
+      url:       `${configs.groupTabUrl}?title=${encodeURIComponent(root.title)}&temporaryAggressive=true`,
       discarded: false
     });
   }
