@@ -101,7 +101,7 @@ export async function ensureTSTDetected() {
       return;
     }
   }
-  catch(error) {
+  catch(_error) {
   }
   try {
     if (await browser.runtime.sendMessage(WS_ID, { type: 'ping' })) {
@@ -110,7 +110,7 @@ export async function ensureTSTDetected() {
       return;
     }
   }
-  catch(error) {
+  catch(_error) {
   }
   throw new Error('Missing dependency: you need to install Tree Style Tab addon also');
 }
