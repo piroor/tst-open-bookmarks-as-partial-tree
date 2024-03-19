@@ -18,7 +18,7 @@ export const configs = new Configs({
 
   openDiscarded: true,
 
-  targetAddonId: null,
+  TSTID: null,
   groupTabUrl: null,
 
   // This must be same to the redirect key of Container Bookmarks.
@@ -96,7 +96,7 @@ const WS_ID  = 'sidebar@waterfox.net';
 export async function ensureTSTDetected() {
   try {
     if (await browser.runtime.sendMessage(TST_ID, { type: 'ping' })) {
-      configs.targetAddonId = TST_ID;
+      configs.TSTID = TST_ID;
       configs.groupTabUrl   = 'ext+treestyletab:group';
       return;
     }
@@ -105,7 +105,7 @@ export async function ensureTSTDetected() {
   }
   try {
     if (await browser.runtime.sendMessage(WS_ID, { type: 'ping' })) {
-      configs.targetAddonId = WS_ID;
+      configs.TSTID = WS_ID;
       configs.groupTabUrl   = 'ext+ws:group';
       return;
     }
@@ -116,14 +116,14 @@ export async function ensureTSTDetected() {
 }
 
 export async function callTSTAPI(message) {
-  if (!configs.targetAddonId)
+  if (!configs.TSTID)
     await ensureTSTDetected();
 
   try {
-    return browser.runtime.sendMessage(configs.targetAddonId, message);
+    return browser.runtime.sendMessage(configs.TSTID, message);
   }
   catch(error) {
-    configs.targetAddonId = null;
+    configs.TSTID = null;
     throw error;
   }
 }
