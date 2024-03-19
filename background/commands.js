@@ -83,13 +83,13 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
   });
 
   try {
-    const firstTab = await browser.tabs.create({
+    const firstTab = await browser.runtime.sendMessage(TST_ID, { type: 'create', params: {
       windowId,
       url:       items[0].url,
       active:    firstRegularItemIndex == 0,
       discarded: discarded && firstRegularItemIndex != 0 && !GROUP_TAB_MATCHER.test(items[0].url),
       cookieStoreId: cookieStoreId || items[0].cookieStoreId || null
-    });
+    }});
 
     const tabs = [firstTab];
     let offset = 0;
@@ -110,7 +110,7 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
         params.discarded = false;
       if (!params.discarded) // title cannot be set for non-discarded tabs
         params.title = null;
-      tabs.push(await browser.tabs.create(params));
+      tabs.push(await browser.runtime.sendMessage(TST_ID, { type: 'create', params }));
     }
 
     await browser.runtime.sendMessage(TST_ID, {
