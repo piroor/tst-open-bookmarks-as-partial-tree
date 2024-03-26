@@ -1,6 +1,9 @@
 # 更新履歴
 
  - master/HEAD
+ - 1.0.9 (2024.3.26)
+   * TSTの設定で「それ以外の契機で開かれたタブ：」が「（制御せず既定の位置に）開く」以外に設定されている場合でもツリーを正しく開くようにした
+   * Waterfox G6.0.10以降に含まれる「タブサイドバー」に対応
  - 1.0.8 (2022.11.3)
    * メモリ消費を削減（[by nirvdrum, thanks!](https://github.com/piroor/webextensions-lib-event-listener-manager/pull/1)）
  - 1.0.7 (2021.10.1)

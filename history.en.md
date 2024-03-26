@@ -1,6 +1,9 @@
 # History
 
  - master/HEAD
+ - 1.0.9 (2024.3.26)
+   * Open tree correctly even if a TST option "Tabs from any other trigger: open as " is configured as something except "(no control)".
+   * Add support for "Tabs Sidebar" of Watefox G6.0.10 and later.
  - 1.0.8 (2022.11.3)
    * Reduce memory allocation ([by nirvdrum, thanks!](https://github.com/piroor/webextensions-lib-event-listener-manager/pull/1))
  - 1.0.7 (2021.10.1)
