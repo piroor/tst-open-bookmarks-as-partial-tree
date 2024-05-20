@@ -63,6 +63,30 @@
     "message": "保持这些标签页一直休眠直到它们变为活动状态",
     "hash": "509c995c21ab51263ec0f69c24e360b5"
   },
+  "groupTab_temporary_label": {
+    "message": "当此标签页没有更多子项时将其关闭",
+    "hash": "d9fdeb22627334b2f0711a7b005fb672"
+  },
+  "groupTab_temporaryAggressive_label": {
+    "message": "当此标签页仅有一个或更少子项时将其关闭",
+    "hash": "bd20bd503f41b304cbeb9fab15a07f32"
+  },
+  "config_groupTabTemporaryState_caption": {
+    "message": "分组标签页的默认状态：",
+    "hash": "a0d0cbbfc03c00558578aedb2830a95b"
+  },
+  "config_groupTabTemporaryState_option_default": {
+    "message": "不勾选任何条目",
+    "hash": "1adc1df283830f9f0dd2ceb7dc668308"
+  },
+  "config_groupTabTemporaryState_option_checked_before": {
+    "message": "勾选 \"",
+    "hash": "8bda8d4d8e299bee15f0a8bee89e4258"
+  },
+  "config_groupTabTemporaryState_option_checked_after": {
+    "message": "\" 条目",
+    "hash": "0c8a2b004f157ea2a2551fd814bc66c5"
+  },
   "config_containerRedirectKey_label_before": {
     "message": "附加组件",
     "hash": "cdb3f5c9a523a17f91b5fe036882fcb7"
