@@ -1,6 +1,9 @@
 # History
 
  - master/HEAD
+ - 1.0.10 (2024.6.9)
+   * Add ability to configure default state of opened group tabs.
+   * Update `zh_CN` locale by [NightSharp](https://github.com/NightSharp). Thanks!
  - 1.0.9 (2024.3.26)
    * Open tree correctly even if a TST option "Tabs from any other trigger: open as " is configured as something except "(no control)".
    * Add support for "Tabs Sidebar" of Watefox G6.0.10 and later.
