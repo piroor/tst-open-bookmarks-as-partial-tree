@@ -1,11 +1,11 @@
 import globals from "globals";
-import eslintImport from "eslint-plugin-import";
+import _import from "eslint-plugin-import";
 
 export default [{
     ignores: ["eslint.config.mjs", "extlib/*", "submodules/*", "!**/.eslintrc.js", "tools/*"],
 }, {
     plugins: {
-        import: eslintImport,
+        import: _import,
     },
 
     languageOptions: {
