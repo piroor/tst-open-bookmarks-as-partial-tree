@@ -35,7 +35,7 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
       // https://addons.mozilla.org/firefox/addon/container-bookmarks/
       const matchedContainer = item.url.match(containerMatcher);
       if (matchedContainer) {
-        const cookieStoreId = ContextualIdentities.getIdFromName(decodeURIComponent(matchedContainer[matchedContainer.length-1]));
+        const cookieStoreId = ContextualIdentities.getIdFromName(decodeURIComponent(matchedContainer[matchedContainer.length - 1]));
         if (cookieStoreId) {
           item.cookieStoreId = cookieStoreId;
           item.url = item.url.replace(containerMatcher, '');
@@ -83,11 +83,11 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
   });
 
   try {
-    const firstTab = await callTSTAPI({ type: 'create', params: {
+    const firstTab = await callTSTAPI({ type:   'create', params: {
       windowId,
-      url:       items[0].url,
-      active:    firstRegularItemIndex == 0,
-      discarded: discarded && firstRegularItemIndex != 0 && !GROUP_TAB_MATCHER.test(items[0].url),
+      url:           items[0].url,
+      active:        firstRegularItemIndex == 0,
+      discarded:     discarded && firstRegularItemIndex != 0 && !GROUP_TAB_MATCHER.test(items[0].url),
       cookieStoreId: cookieStoreId || items[0].cookieStoreId || null
     }});
 
@@ -96,10 +96,10 @@ export async function openBookmarksWithStructure(items, { discarded, cookieStore
     for (const item of items.slice(1)) {
       offset++;
       const params = {
-        title:  item.title,
-        url:    item.url,
-        active: firstRegularItemIndex == offset,
-        index:  firstTab.index + offset,
+        title:         item.title,
+        url:           item.url,
+        active:        firstRegularItemIndex == offset,
+        index:         firstTab.index + offset,
         windowId,
         discarded,
         cookieStoreId: cookieStoreId || item.cookieStoreId || null

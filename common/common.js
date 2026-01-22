@@ -13,17 +13,17 @@ export const kGROUP_TAB_TEMPORARY_STATE_AGGRESSIVE = 2;
 
 export const configs = new Configs({
   context_openPartialTreeFromHere: true,
-  context_openAll: false,
-  context_openAllRecursively: true,
+  context_openAll:                 false,
+  context_openAllRecursively:      true,
 
   container_openPartialTreeFromHere: false,
-  container_openAll: false,
-  container_openAllRecursively: true,
+  container_openAll:                 false,
+  container_openAllRecursively:      true,
 
-  openDiscarded: true,
+  openDiscarded:          true,
   groupTabTemporaryState: kGROUP_TAB_TEMPORARY_STATE_PASSIVE,
 
-  TSTID: null,
+  TSTID:       null,
   groupTabUrl: null,
 
   // This must be same to the redirect key of Container Bookmarks.

@@ -40,70 +40,70 @@ function getSafeCreateParams(params) {
 
 const mItemsById = {
   'openPartialTreeFromHere': {
-    title: browser.i18n.getMessage('context_openPartialTreeFromHere_label'),
-    configKey: 'openPartialTreeFromHere',
-    topLevel: true,
+    title:         browser.i18n.getMessage('context_openPartialTreeFromHere_label'),
+    configKey:     'openPartialTreeFromHere',
+    topLevel:      true,
     isPartialTree: true
   },
   'openPartialTreeFromHere:container': {
-    title: browser.i18n.getMessage('context_openPartialTreeFromHere_label'),
-    configKey: 'openPartialTreeFromHere',
-    topLevel: true,
+    title:         browser.i18n.getMessage('context_openPartialTreeFromHere_label'),
+    configKey:     'openPartialTreeFromHere',
+    topLevel:      true,
     isPartialTree: true
   },
   'openAll': {
-    title: browser.i18n.getMessage('context_openAll_label'),
+    title:     browser.i18n.getMessage('context_openAll_label'),
     configKey: 'openAll',
-    topLevel: true,
-    isFolder: true
+    topLevel:  true,
+    isFolder:  true
   },
   'openAll:container': {
-    title: browser.i18n.getMessage('context_openAll_label'),
+    title:     browser.i18n.getMessage('context_openAll_label'),
     configKey: 'openAll',
-    topLevel: true,
-    isFolder: true
+    topLevel:  true,
+    isFolder:  true
   },
   'openAllRecursively': {
-    title: browser.i18n.getMessage('context_openAllRecursively_label'),
+    title:     browser.i18n.getMessage('context_openAllRecursively_label'),
     configKey: 'openAllRecursively',
-    topLevel: true,
-    isFolder: true
+    topLevel:  true,
+    isFolder:  true
   },
   'openAllRecursively:container': {
-    title: browser.i18n.getMessage('context_openAllRecursively_label'),
+    title:     browser.i18n.getMessage('context_openAllRecursively_label'),
     configKey: 'openAllRecursively',
-    topLevel: true,
-    isFolder: true
+    topLevel:  true,
+    isFolder:  true
   },
 
   'groupedOpenAll': {
-    title: browser.i18n.getMessage('context_openAll_label'),
+    title:    browser.i18n.getMessage('context_openAll_label'),
     isFolder: true
   },
 
   'grouped:openAll': {
-    parentId: 'groupedOpenAll',
-    title: browser.i18n.getMessage('context_grouped_openAll_label'),
+    parentId:  'groupedOpenAll',
+    title:     browser.i18n.getMessage('context_grouped_openAll_label'),
     configKey: 'openAll',
-    isFolder: true
+    isFolder:  true
   },
   'grouped:openAll:container': {
-    parentId: 'groupedOpenAll',
-    title: browser.i18n.getMessage('context_grouped_openAll_label'),
+    parentId:  'groupedOpenAll',
+    title:     browser.i18n.getMessage('context_grouped_openAll_label'),
     configKey: 'openAll',
-    isFolder: true
+    isFolder:  true
   },
   'grouped:openAllRecursively': {
-    parentId: 'groupedOpenAll',
-    title: browser.i18n.getMessage('context_grouped_openAllRecursively_label'),
+    parentId:  'groupedOpenAll',
+    title:     browser.i18n.getMessage('context_grouped_openAllRecursively_label'),
     configKey: 'openAllRecursively',
-    isFolder: true
+    isFolder:  true
   },
   'grouped:openAllRecursively:container': {
-    parentId: 'groupedOpenAll',
-    title: browser.i18n.getMessage('context_grouped_openAllRecursively_label'),
+    parentId:  'groupedOpenAll',
+    title:     browser.i18n.getMessage('context_grouped_openAllRecursively_label'),
     configKey: 'openAllRecursively',
-    isFolder: true
+    isFolder:  true
   }
 };
 const mItems = [];
